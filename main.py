@@ -93,6 +93,5 @@ def compute_split_info(attribute_index: int, data: List[any]):
     return compute_entropy(probabilities)
 
 
-def compute_gain_ratio():
-    # TODO: implement
-    pass
+def compute_gain_ratio(attribute_index: int, data: List[any]):
+    return compute_gain(attribute_index, data) / compute_split_info(attribute_index, data)
