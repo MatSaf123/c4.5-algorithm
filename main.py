@@ -70,9 +70,10 @@ def compute_info(attribute_index: int, data: List[any]):
     return info_value
 
 
-def compute_gain():
-    # TODO; implement
-    pass
+def compute_gain(attribute_index: int, data: List[any]):
+    return compute_entropy(compute_probabilities(data)) - compute_info(
+        attribute_index, data
+    )
 
 
 def compute_gain_ratio():

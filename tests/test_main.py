@@ -1,5 +1,6 @@
 from main import (
     compute_entropy,
+    compute_gain,
     compute_info,
     compute_probabilities,
     read_from_file,
@@ -56,3 +57,8 @@ def test_compute_entropy():
 def test_compute_info():
     expected = 0.4
     assert compute_info(0, read_from_file("data/gielda.txt")) == expected
+
+
+def test_compute_gain():
+    expected = 0.6
+    assert compute_gain(0, read_from_file("data/gielda.txt")) == expected
