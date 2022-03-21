@@ -48,9 +48,7 @@ def compute_entropy(probabilities: List[int]):
 
 
 def compute_info(attribute_index: int, data: List[any]):
-    n = len(data)
     len_entry = len(data[0])
-
     if attribute_index > len_entry - 1:
         raise ValueError(
             f"Attribute with index {attribute_index} not found in data dictionary keys"
@@ -65,7 +63,7 @@ def compute_info(attribute_index: int, data: List[any]):
     for attribute_key in class_occurances[attribute_index].keys():
         data_subset = [row for row in data if row[0] == attribute_key]
         info_value += (
-            len(data_subset) / n * compute_entropy(compute_probabilities(data_subset))
+            len(data_subset) / len(data) * compute_entropy(compute_probabilities(data_subset))
         )
     return info_value
 
@@ -74,6 +72,25 @@ def compute_gain(attribute_index: int, data: List[any]):
     return compute_entropy(compute_probabilities(data)) - compute_info(
         attribute_index, data
     )
+
+
+def compute_split_info(attribute_index: int, data: List[any]):
+    len_entry = len(data[0])
+    if attribute_index > len_entry - 1:
+        raise ValueError(
+            f"Attribute with index {attribute_index} not found in data dictionary keys"
+        )
+    elif attribute_index == len_entry - 1:
+        raise ValueError(
+            f"Last index ({attribute_index}) is reserved for decisional attribute"
+        )
+
+    class_occurances = count_class_occurances(data)
+    probabilities = []
+    for attribute_key in class_occurances[attribute_index].keys():
+        data_subset = [row for row in data if row[0] == attribute_key]
+        probabilities.append(len(data_subset) / len(data))
+    return compute_entropy(probabilities)
 
 
 def compute_gain_ratio():

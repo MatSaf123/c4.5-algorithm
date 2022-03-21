@@ -3,6 +3,7 @@ from main import (
     compute_gain,
     compute_info,
     compute_probabilities,
+    compute_split_info,
     read_from_file,
     count_classes,
     count_class_occurances,
@@ -62,3 +63,8 @@ def test_compute_info():
 def test_compute_gain():
     expected = 0.6
     assert compute_gain(0, read_from_file("data/gielda.txt")) == expected
+
+
+def test_compute_split_info():
+    expected = 1.5709505944546684
+    assert compute_split_info(0, read_from_file("data/gielda.txt")) == expected
