@@ -1,4 +1,11 @@
-from main import read_from_file, count_classes, count_class_occurances
+from main import (
+    compute_entropy,
+    compute_info,
+    compute_probabilities,
+    read_from_file,
+    count_classes,
+    count_class_occurances,
+)
 
 
 def test_read_from_file():
@@ -31,3 +38,21 @@ def test_count_class_occurances():
         {"down": 5, "up": 5},
     ]
     assert count_class_occurances(read_from_file("data/gielda.txt")) == expected
+
+
+def test_compute_probabilities():
+    expected = [0.5, 0.5]
+    assert compute_probabilities(read_from_file("data/gielda.txt")) == expected
+
+
+def test_compute_entropy():
+    expected = 1
+    assert (
+        compute_entropy(compute_probabilities(read_from_file("data/gielda.txt")))
+        == expected
+    )
+
+
+def test_compute_info():
+    expected = 0.4
+    assert compute_info(0, read_from_file("data/gielda.txt")) == expected
