@@ -63,7 +63,9 @@ def compute_info(attribute_index: int, data: List[any]):
     for attribute_key in class_occurances[attribute_index].keys():
         data_subset = [row for row in data if row[0] == attribute_key]
         info_value += (
-            len(data_subset) / len(data) * compute_entropy(compute_probabilities(data_subset))
+            len(data_subset)
+            / len(data)
+            * compute_entropy(compute_probabilities(data_subset))
         )
     return info_value
 
@@ -94,4 +96,6 @@ def compute_split_info(attribute_index: int, data: List[any]):
 
 
 def compute_gain_ratio(attribute_index: int, data: List[any]):
-    return compute_gain(attribute_index, data) / compute_split_info(attribute_index, data)
+    return compute_gain(attribute_index, data) / compute_split_info(
+        attribute_index, data
+    )

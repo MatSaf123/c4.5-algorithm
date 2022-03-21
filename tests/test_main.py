@@ -70,6 +70,7 @@ def test_compute_split_info():
     expected = 1.5709505944546684
     assert compute_split_info(0, read_from_file("data/gielda.txt")) == expected
 
+
 def test_compute_gain_ratio():
     expected = 0.3819343537078458
     assert compute_gain_ratio(0, read_from_file("data/gielda.txt")) == expected
