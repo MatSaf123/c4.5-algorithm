@@ -1,0 +1,77 @@
+Node(
+    label=None,
+    branch_label=None,
+    children=[
+        Node(
+            label=0,
+            branch_label="new",
+            children=[],
+            decision_table=DecisionTable(
+                table=[
+                    ["new", "yes", "swr", "up"],
+                    ["new", "no", "hwr", "up"],
+                    ["new", "no", "swr", "up"],
+                ]
+            ),
+        ),
+        Node(
+            label=0,
+            branch_label="old",
+            children=[],
+            decision_table=DecisionTable(
+                table=[
+                    ["old", "yes", "swr", "down"],
+                    ["old", "no", "swr", "down"],
+                    ["old", "no", "hwr", "down"],
+                ]
+            ),
+        ),
+        Node(
+            label=0,
+            branch_label="mid",
+            children=[
+                Node(
+                    label=1,
+                    branch_label="yes",
+                    children=[],
+                    decision_table=DecisionTable(
+                        table=[
+                            ["mid", "yes", "swr", "down"],
+                            ["mid", "yes", "hwr", "down"],
+                        ]
+                    ),
+                ),
+                Node(
+                    label=1,
+                    branch_label="no",
+                    children=[],
+                    decision_table=DecisionTable(
+                        table=[["mid", "no", "hwr", "up"], ["mid", "no", "swr", "up"]]
+                    ),
+                ),
+            ],
+            decision_table=DecisionTable(
+                table=[
+                    ["mid", "yes", "swr", "down"],
+                    ["mid", "yes", "hwr", "down"],
+                    ["mid", "no", "hwr", "up"],
+                    ["mid", "no", "swr", "up"],
+                ]
+            ),
+        ),
+    ],
+    decision_table=DecisionTable(
+        table=[
+            ["old", "yes", "swr", "down"],
+            ["old", "no", "swr", "down"],
+            ["old", "no", "hwr", "down"],
+            ["mid", "yes", "swr", "down"],
+            ["mid", "yes", "hwr", "down"],
+            ["mid", "no", "hwr", "up"],
+            ["mid", "no", "swr", "up"],
+            ["new", "yes", "swr", "up"],
+            ["new", "no", "hwr", "up"],
+            ["new", "no", "swr", "up"],
+        ]
+    ),
+)
