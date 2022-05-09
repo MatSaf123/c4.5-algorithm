@@ -145,10 +145,13 @@ def divide_node(node: Node) -> None:
         divide_node(c)
 
 
-def print_tree(node: Node) -> None:
-    # TODO
-    print("foo")
-
+def print_tree(node: Node, indent:int = 0) -> None:
+    if node.label is not None:
+        print(' '*indent+f'Atrybut {node.label+1}')
+        if len(node.children) == 0:
+            print(' '*indent+f'{node.branch_label} -> {node.decision_table.table[0][-1]}')
+    for c in node.children:
+        print_tree(c, indent+4)
 
 def run():
     data = read_from_file("data/gielda.txt")
