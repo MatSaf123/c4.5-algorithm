@@ -5,6 +5,7 @@ from models.decision_table import DecisionTable
 from models.decision_tree import Tree
 
 from models.node import Node
+from utils import unique
 
 # TODO: move this away from main.py
 
@@ -31,7 +32,7 @@ def count_class_occurances(data: List[List[any]]) -> List[Dict[str, int]]:
     size = len(data[0])
     class_sets = []
     for i in range(size):
-        uniques = set([val[i] for val in data])
+        uniques = unique([val[i] for val in data])
         class_sets.append(list(uniques))
     occurances = [dict.fromkeys(class_set, 0) for class_set in class_sets]
     for ele in data:

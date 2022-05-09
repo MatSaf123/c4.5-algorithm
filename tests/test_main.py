@@ -42,7 +42,6 @@ def test_count_class_occurances():
     ]
     assert count_class_occurances(read_from_file("data/gielda.txt")) == expected
 
-
 def test_compute_probabilities():
     expected = [0.5, 0.5]
     assert compute_probabilities(read_from_file("data/gielda.txt")) == expected
