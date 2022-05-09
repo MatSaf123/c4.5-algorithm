@@ -146,19 +146,26 @@ def divide_node(node: Node) -> None:
         divide_node(c)
 
 
-def print_tree(node: Node, indent:int = 0) -> None:
-    if node.label is not None:
-        print(' '*indent+f'Atrybut {node.label+1}')
+def print_tree(node: Node, indent: int, attr_print_flags: List[bool]) -> None:
+    if node.label is None:
+        for c in node.children:
+            print_tree(c, indent+2, attr_print_flags)
+    else:
+        if(attr_print_flags[node.label] == False):
+            print(f' Atrybut {node.label+1}')
+            attr_print_flags[node.label] = True
         if len(node.children) == 0:
-            print(' '*indent+f'{node.branch_label} -> {node.decision_table.table[0][-1]}')
-    for c in node.children:
-        print_tree(c, indent+4)
+            print(' '*indent*2+f'{node.branch_label} -> {node.decision_table.table[0][-1]}')
+        else:
+            print(' '*indent*2+f'{node.branch_label} ->', end="")
+            for c in node.children:
+                print_tree(c, indent+2, attr_print_flags)
 
 def run():
     data = read_from_file("data/gielda.txt")
     root = Node(None, None, [], DecisionTable(data))
     divide_node(root)
-    print_tree(root)
-
+    attributes_print_flags = [False for _ in range(len(root.decision_table.table[0])-1)]
+    print_tree(root, 0, attributes_print_flags)
 
 run()
