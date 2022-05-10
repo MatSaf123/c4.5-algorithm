@@ -144,13 +144,13 @@ def divide_node(node: Node) -> None:
         divide_node(c)
 
 
-def get_max_from_decision_table(table):
+def get_class_with_max_occurances(table):
     temp = count_class_occurances(table)[-1]
-    max_k = table[0][-1]
-    max_v = temp[max_k]
+    max_k = table[0][-1] # last column is D class
+    max_count = temp[max_k]
     for k, v in temp.items():
-        if v > max_v:
-            max_v = v
+        if v > max_count:
+            max_count = v
             max_k = k
     return max_k
 
@@ -158,7 +158,7 @@ def print_tree(node: Node, indent: int) -> None:
     if node.label is None and node.branch_label is None:
         print(f'Atrybut: {node.children[0].label}')
     elif len(node.children) == 0:
-        print(" "*indent + " " + str(node.branch_label) + "->" + get_max_from_decision_table(node.decision_table.table))
+        print(" "*indent + " " + str(node.branch_label) + "->" + get_class_with_max_occurances(node.decision_table.table))
     else:
         print(" "*indent + " " + str(node.branch_label) + "->" + f'Atrybut: {str(node.children[0].label)}')
     for c in node.children:
@@ -169,7 +169,7 @@ def print_tree(node: Node, indent: int) -> None:
 def run():
     # data = read_from_file("data/gielda.txt")
     # data = read_from_file("data/car.data")
-    data = read_from_file("data/breast-cancer.data")  
+    data = read_from_file("data/breast-cancer.data") 
 
     root = Node(None, None, [], DecisionTable(data))
     divide_node(root)
