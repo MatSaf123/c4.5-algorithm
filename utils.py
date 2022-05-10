@@ -1,3 +1,7 @@
+from typing import List, Union
+from models.node import Node
+
+
 def unique(sequence):
     """Preserves order of the sequence"""
     seen = set()

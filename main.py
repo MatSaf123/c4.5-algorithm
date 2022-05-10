@@ -2,8 +2,6 @@ import csv
 from math import log2
 from typing import Dict, List, Tuple
 from models.decision_table import DecisionTable
-from models.decision_tree import Tree
-
 from models.node import Node
 from utils import unique
 
@@ -146,26 +144,35 @@ def divide_node(node: Node) -> None:
         divide_node(c)
 
 
-def print_tree(node: Node, indent: int, attr_print_flags: List[bool]) -> None:
-    if node.label is None:
-        for c in node.children:
-            print_tree(c, indent+2, attr_print_flags)
+def get_max_from_decision_table(table):
+    temp = count_class_occurances(table)[-1]
+    max_k = table[0][-1]
+    max_v = temp[max_k]
+    for k, v in temp.items():
+        if v > max_v:
+            max_v = v
+            max_k = k
+    return max_k
+
+def print_tree(node: Node, indent: int) -> None:
+    if node.label is None and node.branch_label is None:
+        print(f'Atrybut: {node.children[0].label}')
+    elif len(node.children) == 0:
+        print(" "*indent + " " + str(node.branch_label) + "->" + get_max_from_decision_table(node.decision_table.table))
     else:
-        if(attr_print_flags[node.label] == False):
-            print(f' Atrybut {node.label+1}')
-            attr_print_flags[node.label] = True
-        if len(node.children) == 0:
-            print(' '*indent*2+f'{node.branch_label} -> {node.decision_table.table[0][-1]}')
-        else:
-            print(' '*indent*2+f'{node.branch_label} ->', end="")
-            for c in node.children:
-                print_tree(c, indent+2, attr_print_flags)
+        print(" "*indent + " " + str(node.branch_label) + "->" + f'Atrybut: {str(node.children[0].label)}')
+    for c in node.children:
+        print_tree(c, indent+4)
+
+
 
 def run():
-    data = read_from_file("data/gielda.txt")
+    # data = read_from_file("data/gielda.txt")
+    # data = read_from_file("data/car.data")
+    data = read_from_file("data/breast-cancer.data")  
+
     root = Node(None, None, [], DecisionTable(data))
     divide_node(root)
-    attributes_print_flags = [False for _ in range(len(root.decision_table.table[0])-1)]
-    print_tree(root, 0, attributes_print_flags)
+    print_tree(root, 0)
 
 run()
