@@ -1,6 +1,6 @@
 # C4.5 Algorithm
 
-Implementation of C4.5 decision tree generation algorithm, made as a part of machine learning classes at University of Economics in Katowice, 2022.
+Implementation of [C4.5 decision tree generation algorithm](https://en.wikipedia.org/wiki/C4.5_algorithm), made as a part of machine learning classes at University of Economics in Katowice, 2022.
 
 # Run
 
